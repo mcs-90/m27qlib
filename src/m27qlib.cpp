@@ -8,20 +8,20 @@
 #include "libusbk/libusbk.h"
 #include "m27qlib/m27qlib.h"
 
+
 #define VID 0x2109
 #define PID 0x8883
 
-static UINT Delay { 50 };
-static KUSB_DRIVER_API Usb { NULL };
-static KUSB_HANDLE usbHandle { NULL };
-static KLST_DEVINFO_HANDLE deviceInfo { NULL };
+
+static KUSB_DRIVER_API Usb{};
+static KUSB_HANDLE usbHandle{};
+static KLST_DEVINFO_HANDLE deviceInfo{};
 
 
 void M27Q_UsbWrite(UCHAR request, USHORT value, USHORT index, USHORT length, PUCHAR buffer)
 {
     WINUSB_SETUP_PACKET setupPacket{ 0x40, request, value, index, length };
     Usb.ControlTransfer(usbHandle, setupPacket, buffer, length, NULL, NULL);
-    Sleep(Delay);
 }
 
 
@@ -29,7 +29,6 @@ void M27Q_UsbRead(UCHAR request, USHORT value, USHORT index, USHORT length, PUCH
 {
     WINUSB_SETUP_PACKET setupPacket { 0xC0, request, value, index, length };
     Usb.ControlTransfer(usbHandle, setupPacket, buffer, length, NULL, NULL);
-    Sleep(Delay);
 }
 
 
@@ -90,13 +89,6 @@ UINT M27Q_SetCrosshair(UINT value)
 {
     UCHAR data[3] { 0xE0, 0x37, static_cast<UCHAR>(value) };
     M27Q_SetOSD(data, 3);
-    return 0;
-}
-
-
-UINT M27Q_SetDelay(UINT value)
-{
-    Delay = value;
     return 0;
 }
 
