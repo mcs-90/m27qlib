@@ -10,6 +10,9 @@
 #define M27QLIBRARY_API __declspec(dllimport)
 #endif
 
+extern "C" M27QLIBRARY_API void M27Q_UsbWrite(UCHAR request, USHORT value, USHORT index, USHORT length, PUCHAR buffer);
+extern "C" M27QLIBRARY_API void M27Q_UsbRead(UCHAR request, USHORT value, USHORT index, USHORT length, PUCHAR buffer);
+
 extern "C" M27QLIBRARY_API UINT M27Q_SetCrosshair(UINT value);
 extern "C" M27QLIBRARY_API UINT M27Q_GetBrightness();
 extern "C" M27QLIBRARY_API UINT M27Q_SetBrightness(UINT value);
